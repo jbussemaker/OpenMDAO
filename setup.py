@@ -221,5 +221,5 @@ setup(
             'multificokrigingsurrogate=openmdao.surrogate_models.multifi_cokriging:MultiFiCoKrigingSurrogate',
         ]
     },
-    extras_require=optional_dependencies,
+    # extras_require=optional_dependencies,
 )
