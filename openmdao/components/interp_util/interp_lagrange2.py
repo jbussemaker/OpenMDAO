@@ -65,7 +65,7 @@ class InterpLagrange2(InterpAlgorithm):
         subtable = self.subtable
 
         # Complex Step
-        if self.values.dtype == np.complex:
+        if self.values.dtype == complex:
             dtype = self.values.dtype
         else:
             dtype = x.dtype

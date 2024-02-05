@@ -558,7 +558,7 @@ class TestInterpNDPython(unittest.TestCase):
         msg = ('There are 4 points and 6 values in dimension 0')
         self.assertEqual(str(cm.exception), msg)
 
-        badvalues = np.array(values, dtype=np.complex)
+        badvalues = np.array(values, dtype=complex)
         with self.assertRaises(ValueError) as cm:
             interp = InterpND(method='slinear', points=badpoints, values=badvalues.tolist())
 

@@ -958,7 +958,7 @@ class BlockLinearSolver(LinearSolver):
         """
         for vec_name in self._system()._lin_rel_vec_name_list:
             if active:
-                self._rhs_vecs[vec_name] = self._rhs_vecs[vec_name].astype(np.complex)
+                self._rhs_vecs[vec_name] = self._rhs_vecs[vec_name].astype(complex)
             else:
                 self._rhs_vecs[vec_name] = self._rhs_vecs[vec_name].real
 
