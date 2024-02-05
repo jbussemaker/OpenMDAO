@@ -3,7 +3,7 @@ import re
 from itertools import product
 
 import numpy as np
-from numpy import ndarray, imag, complex as npcomplex
+from numpy import ndarray, imag
 
 from openmdao.core.explicitcomponent import ExplicitComponent
 from openmdao.utils.units import valid_units
@@ -456,7 +456,7 @@ class ExecComp(ExplicitComponent):
             pwrap = _TmpDict(inputs)
             pval = inputs[input]
             psize = pval.size
-            pwrap[input] = np.asarray(pval, npcomplex)
+            pwrap[input] = np.asarray(pval, complex)
 
             if has_diag_partials or psize == 1:
                 # set a complex input value
@@ -535,9 +535,9 @@ class _TmpDict(object):
         elif self._complex:
             val = self._inner[name]
             if isinstance(val, ndarray):
-                self._changed[name] = np.asarray(val, dtype=npcomplex)
+                self._changed[name] = np.asarray(val, dtype=complex)
             else:
-                self._changed[name] = npcomplex(val)
+                self._changed[name] = complex(val)
             return self._changed[name]
         else:
             return self._inner[name]
