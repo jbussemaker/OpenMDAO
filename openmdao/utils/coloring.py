@@ -17,7 +17,11 @@ from pprint import pprint
 from itertools import groupby
 
 import numpy as np
-from scipy.sparse.compressed import get_index_dtype
+try:
+    from scipy.sparse.compressed import get_index_dtype
+except ImportError:
+    def get_index_dtype(*args, **kwargs):
+        raise RuntimeError('Broken!')
 
 from openmdao.jacobians.jacobian import Jacobian
 from openmdao.utils.array_utils import array_viz
