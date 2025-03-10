@@ -3,13 +3,17 @@ import os
 import sys
 import re
 
-import numpy.distutils
-from numpy.distutils.exec_command import find_executable
+# import numpy.distutils
+# from numpy.distutils.exec_command import find_executable
 
 from openmdao.core.analysis_error import AnalysisError
 from openmdao.core.explicitcomponent import ExplicitComponent
 from openmdao.core.implicitcomponent import ImplicitComponent
 from openmdao.utils.shell_proc import STDOUT, DEV_NULL, ShellProc
+
+
+def find_executable(*args):
+    raise NotImplementedError
 
 
 class ExternalCodeDelegate(object):
