@@ -145,7 +145,7 @@ setup(
     install_requires=[
         'networkx>=2.0',
         'numpy',
-        'pyDOE2',
+        'pyDOE3',
         'pyparsing',
         'scipy',
         'requests'

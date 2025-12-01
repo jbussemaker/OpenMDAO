@@ -8,7 +8,7 @@ import os.path
 import csv
 import re
 
-import pyDOE2
+import pyDOE3
 
 from openmdao.utils.name_maps import prom_name2abs_name
 
@@ -390,7 +390,7 @@ class FullFactorialGenerator(_pyDOE_Generator):
         ndarray
             The design matrix as a size x levels array of indices.
         """
-        return pyDOE2.fullfact([self._levels] * size)
+        return pyDOE3.fullfact([self._levels] * size)
 
 
 class PlackettBurmanGenerator(_pyDOE_Generator):
@@ -418,7 +418,7 @@ class PlackettBurmanGenerator(_pyDOE_Generator):
         ndarray
             The design matrix as a size x levels array of indices.
         """
-        doe = pyDOE2.pbdesign(size)
+        doe = pyDOE3.pbdesign(size)
 
         doe[doe < 0] = 0  # replace -1 with zero
 
@@ -466,14 +466,14 @@ class BoxBehnkenGenerator(_pyDOE_Generator):
                                "but must be at least 3 when using %s. " %
                                (size, self.__class__.__name__))
 
-        doe = pyDOE2.bbdesign(size, center=self._center)
+        doe = pyDOE3.bbdesign(size, center=self._center)
 
         return doe + 1  # replace [-1, 0, 1] with [0, 1, 2]
 
 
 class LatinHypercubeGenerator(DOEGenerator):
     """
-    DOE case generator implementing Latin hypercube method via pyDOE2.
+    DOE case generator implementing Latin hypercube method via pyDOE3.
 
     Attributes
     ----------
@@ -556,7 +556,7 @@ class LatinHypercubeGenerator(DOEGenerator):
             self._samples = size
 
         # generate design
-        doe = pyDOE2.lhs(size, samples=self._samples,
+        doe = pyDOE3.lhs(size, samples=self._samples,
                          criterion=self._criterion,
                          iterations=self._iterations,
                          random_state=self._seed)

@@ -24,7 +24,7 @@ import os
 import copy
 
 import numpy as np
-from pyDOE2 import lhs
+from pyDOE3 import lhs
 
 import openmdao
 from openmdao.core.driver import Driver, RecordingDebugging
