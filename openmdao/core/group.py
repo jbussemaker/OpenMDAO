@@ -1590,7 +1590,12 @@ class Group(System):
         """
         Add shape/size metadata for variables that were created with shape_by_conn or copy_shape.
         """
-        self._shapes_graph = graph = nx.OrderedGraph()  # ordered graph for consistency across procs
+
+        try:
+            self._shapes_graph = graph = nx.OrderedGraph()  # ordered graph for consistency across procs
+        except AttributeError:
+            # For newer python/networkx versions all graphs are ordered
+            self._shapes_graph = graph = nx.Graph()
         self._shape_knowns = knowns = set()
 
         def copy_var_meta(from_var, to_var, distrib_sizes):
@@ -1687,7 +1692,11 @@ class Group(System):
                     rev[src] = [tgt]
             return rev
 
-        graph = nx.OrderedGraph()  # ordered graph for consistency across procs
+        try:
+            graph = nx.OrderedGraph()  # ordered graph for consistency across procs
+        except AttributeError:
+            # For newer python/networkx versions all graphs are ordered
+            graph = nx.Graph()
         dist_sz = {}  # local distrib sizes
         knowns = set()  # variable nodes in the graph with known shapes
         all_abs2meta_out = self._var_allprocs_abs2meta['output']
