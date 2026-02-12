@@ -22,6 +22,8 @@ from openmdao.utils.general_utils import format_as_float_or_array, ensure_compat
     _slice_indices
 import openmdao.utils.coloring as coloring_mod
 
+IS_NP_2 = not np.__version__.startswith('1')
+
 
 _forbidden_chars = ['.', '*', '?', '!', '[', ']']
 _whitespace = set([' ', '\t', '\r', '\n'])
@@ -1264,8 +1266,12 @@ class Component(System):
             abs_key = rel_key2abs_key(self, (of, wrt))
 
             meta = {}
-            meta['rows'] = np.array(dct['rows'], dtype=INT_DTYPE, copy=False)
-            meta['cols'] = np.array(dct['cols'], dtype=INT_DTYPE, copy=False)
+            if IS_NP_2:
+                meta['rows'] = np.asarray(dct['rows'], dtype=INT_DTYPE)
+                meta['cols'] = np.asarray(dct['cols'], dtype=INT_DTYPE)
+            else:
+                meta['rows'] = np.array(dct['rows'], dtype=INT_DTYPE, copy=False)
+                meta['cols'] = np.array(dct['cols'], dtype=INT_DTYPE, copy=False)
             meta['shape'] = (len(dct['rows']), len(dct['cols']))
             meta['value'] = dct['value']
 
@@ -1281,8 +1287,12 @@ class Component(System):
                 rows = dct['rows']
                 cols = dct['cols']
 
-                rows = np.array(rows, dtype=INT_DTYPE, copy=False)
-                cols = np.array(cols, dtype=INT_DTYPE, copy=False)
+                if IS_NP_2:
+                    rows = np.asarray(rows, dtype=INT_DTYPE)
+                    cols = np.asarray(cols, dtype=INT_DTYPE)
+                else:
+                    rows = np.array(rows, dtype=INT_DTYPE, copy=False)
+                    cols = np.array(cols, dtype=INT_DTYPE, copy=False)
 
                 if rows.shape != cols.shape:
                     raise ValueError('{}: d({})/d({}): rows and cols must have the same shape,'
